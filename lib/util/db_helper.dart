@@ -15,11 +15,11 @@ class DbHelper{
   Future<Database> openDb() async {
     if (db == null){
       db = await openDatabase(
-          join(await getDatabasesPath(), 'anime.db'),
+          join(await getDatabasesPath(), 'anime.dbb'),
           onCreate: (database, version){
             database.execute(
                 'CREATE TABLE animes('
-                    'id INTEGER PRIMARY KEY, image TEXT, title TEXT, year TEXT)'
+                    'id INTEGER PRIMARY KEY, image TEXT, title TEXT, year INTEGER)'
             );
           },
           version: version
@@ -37,8 +37,8 @@ class DbHelper{
       return Anime(
           id: maps[i]['id'],
           title: maps[i]['title'],
-          year: stringToInt(maps[i]['year']),
-          images: maps[i]['image'],
+          year: maps[i]['year'],
+          image: maps[i]['image'],
           isFavorite: true
       );
     });

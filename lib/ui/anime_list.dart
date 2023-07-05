@@ -149,8 +149,8 @@ class _AnimeRowState extends State<AnimeRow> {
 
     isFavorite(anime);
 
-    if (anime.images?.jpg?.imageUrl != null){
-      path = '${anime.images?.jpg?.imageUrl}';
+    if (anime.image != null){
+      path = '${anime.image}';
     } else {
       path = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png';
     }

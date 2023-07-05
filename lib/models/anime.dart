@@ -1,6 +1,6 @@
 class Anime {
   int? id;
-  Images? images;
+  String? image;
   String? title;
   int? episodes;
   int? members;
@@ -9,7 +9,7 @@ class Anime {
 
   Anime(
       {this.id,
-        this.images,
+        this.image,
         this.title,
         this.episodes,
         this.members,
@@ -19,8 +19,8 @@ class Anime {
 
   Anime.fromJson(Map<String, dynamic> json) {
     id = json['mal_id'];
-    images =
-    json['images'] != null ? new Images.fromJson(json['images']) : null;
+    image = json['images']['jpg']['image_url'];
+    //json['images'] != null ? new Images.fromJson(json['images']) : null;
     title = json['title'];
     episodes = json['episodes'];
     members = json['members'];
@@ -30,9 +30,7 @@ class Anime {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['mal_id'] = this.id;
-    if (this.images != null) {
-      data['images'] = this.images!.toJson();
-    }
+    data['images'] = this.image;
     data['title'] = this.title;
     data['episodes'] = this.episodes;
     data['members'] = this.members;
@@ -44,7 +42,7 @@ class Anime {
     return {
       'id': id,
       'title': title,
-      'image': images!.jpg!.imageUrl,
+      'image': image,
       'year': year
     };
   }
