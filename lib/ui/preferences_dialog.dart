@@ -6,7 +6,7 @@ class PrefencesDialog {
   Widget buildDialog(BuildContext context, int members, int episodes) {
 
     return AlertDialog(
-      title: Text("Preferences"),
+      title: Text("COUNTS"),
       content: SingleChildScrollView(
         child: Column(
           children: <Widget>[

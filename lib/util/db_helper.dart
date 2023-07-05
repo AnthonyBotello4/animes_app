@@ -44,6 +44,8 @@ class DbHelper{
           title: maps[i]['title'],
           year: maps[i]['year'],
           image: maps[i]['image'],
+          episodes: maps[i]['episodes'],
+          members: maps[i]['members'],
           isFavorite: true
       );
     });

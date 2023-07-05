@@ -24,20 +24,28 @@ class _FavAnimesState extends State<FavAnimes> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favorite Animes'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.numbers),
-            onPressed: () {
-              //mostra el dialog asincrono
-              print('Members: ${prefs.getInt('members')}');
-              print('Episodes: ${prefs.getInt('episodes')}');
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) =>
-                      dialog.buildDialog(context, prefs.getInt('members')!.toInt(), prefs.getInt('episodes')!.toInt())
-              );
+        actions: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: Row(
+              children: <Widget>[
+                const Text('See Preferences'),
+                IconButton(
+                  icon: const Icon(Icons.numbers),
+                  onPressed: () {
+                    //mostra el dialog asincrono
+                    print('Members: ${prefs.getInt('members')}');
+                    print('Episodes: ${prefs.getInt('episodes')}');
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            dialog.buildDialog(context, prefs.getInt('members')!.toInt(), prefs.getInt('episodes')!.toInt())
+                    );
+                  },
+                ),
+              ],
 
-            },
+            ),
           ),],
       ),
       body: ListView.builder(
