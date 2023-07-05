@@ -1,6 +1,7 @@
 import 'package:examen_final/models/anime.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DbHelper{
   final int version = 1;
@@ -15,15 +16,19 @@ class DbHelper{
   Future<Database> openDb() async {
     if (db == null){
       db = await openDatabase(
-          join(await getDatabasesPath(), 'anime.dbb'),
+          join(await getDatabasesPath(), 'anime.dbbbb'),
           onCreate: (database, version){
             database.execute(
                 'CREATE TABLE animes('
-                    'id INTEGER PRIMARY KEY, image TEXT, title TEXT, year INTEGER)'
+                    'id INTEGER PRIMARY KEY, image TEXT, title TEXT, year INTEGER, episodes INTEGER, members INTEGER)'
             );
           },
           version: version
       );
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setInt('members', 0);
+      prefs.setInt('episodes', 0);
     }
 
     return db!;
@@ -50,6 +55,9 @@ class DbHelper{
         anime.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace
     );
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('members', prefs.getInt('members')! + anime.members!);
+    prefs.setInt('episodes', prefs.getInt('episodes')! + anime.episodes!);
     return id;
   }
 
@@ -67,13 +75,24 @@ class DbHelper{
     return maps.length > 0;
   }
 
-  Future<int> deleteAnime(Anime anime) async {
+  Future<int?> deleteAnime(Anime anime) async {
+    await lessMembers(anime);
+
     int result = await db!.delete(
         'animes',
         where: 'id = ?',
         whereArgs: [anime.id]
     );
+
+
+
     return result;
+  }
+
+  Future lessMembers(Anime anime) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('members', prefs.getInt('members')! - anime.members!);
+    prefs.setInt('episodes', prefs.getInt('episodes')! - anime.episodes!);
   }
 
 }

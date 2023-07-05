@@ -38,6 +38,7 @@ dependencies:
   http: ^1.0.0
   sqflite: ^2.2.8+4
   path: ^1.6.4
+  shared_preferences: ^2.2.0
 
 
 dev_dependencies:

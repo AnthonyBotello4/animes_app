@@ -167,7 +167,7 @@ class _AnimeRowState extends State<AnimeRow> {
         ),
         title: Text(widget.anime.title!),
         subtitle: Text(
-            '${widget.anime.year}'
+            '${widget.anime.year} - ${widget.anime.members} - ${widget.anime.episodes}'
         ),
         onTap: (){
         },

@@ -43,7 +43,9 @@ class Anime {
       'id': id,
       'title': title,
       'image': image,
-      'year': year
+      'year': year,
+      'episodes': episodes,
+      'members': members
     };
   }
 
